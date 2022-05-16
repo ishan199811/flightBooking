@@ -56,5 +56,5 @@ public class FlightServiceTest {
 				 new Flight((long) 1,"air india","is313",32,"tuesday",route)).collect(Collectors.toList()));
 	       assertEquals(2,service.getAllFlight());
 	    }
-		
+
 }
