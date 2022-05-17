@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,10 +95,25 @@ public class FlightServiceImpl implements FlightService{
 			
 			//geetind route by destination
 			List<Route> route1=routeRepo.findByDestination(destination);
-		route1.addAll(route);
+			//Filtering Route 
+			Set<String> exclusions = route.stream()
+				    .map(Route::getDestination)
+				    .collect(Collectors.toSet());
+			List<Route> filtered = route1.stream()
+				    .filter(p -> exclusions.contains(p.getSource()))
+				    .collect(Collectors.toList());
 		
+			//Filtering route 1 
+			//route destination = route 1 source
+			Set<String> exclusion = route1.stream()
+				    .map(Route::getSource)
+				    .collect(Collectors.toSet());
+			List<Route> filtere = route.stream()
+				    .filter(p -> exclusion.contains(p.getDestination()))
+				    .collect(Collectors.toList());
 		
-		return ResponseMessage.builder().status("201").data(route1)
+			filtere.addAll(filtered);
+		return ResponseMessage.builder().status("201").data(filtere)
 					  .message("There is no direct flight:"+search.getDate()).build();
 	}
 	
@@ -116,7 +132,6 @@ public class FlightServiceImpl implements FlightService{
 		Route route=routeRepo.findByRouteId(id);
 		fl.setRouteId(route);
 		flyrepo.save(fl);
-		
 		return ResponseMessage.builder().status("1").message("Flight have Been saved").build();
 	}
 
