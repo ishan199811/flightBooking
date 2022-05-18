@@ -67,7 +67,7 @@ public class FlightServiceImpl implements FlightService{
 	              .collect(Collectors.toList());
 
 		  //checking if pflight is present or not
-		  if(tempList.size()==0) {  
+		  if(tempList.isEmpty()) {  
 		return ResponseMessage.builder().status("201")
 				.message(" There is no direct flight from :"+ source+ " to: " +destination +" on "+myDate+","+day)
 				.build();

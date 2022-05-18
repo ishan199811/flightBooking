@@ -24,5 +24,10 @@ public interface FlightRepository extends JpaRepository<Flight , Long> {
 	Flight findByDestination(String destination );
 	
 	List<Flight> findFlightByRouteId(Route r);
+	
+	@Query(
+	        "SELECT CASE WHEN COUNT(s) > 0 THEN TRUE ELSE FALSE END FROM Flight s WHERE s.flightId = ?1")
+	    Boolean
+	    isFlightExitsById(long id);
 
 }

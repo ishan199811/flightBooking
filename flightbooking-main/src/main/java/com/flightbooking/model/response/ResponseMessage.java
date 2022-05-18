@@ -8,13 +8,16 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
+  @Builder
 public class ResponseMessage  {
 	
-	String message;
 	
-	String status;
 	
-	Object data;
+
+	public String message;
+	
+public 	String status;
+	
+public	Object data;
 
 }

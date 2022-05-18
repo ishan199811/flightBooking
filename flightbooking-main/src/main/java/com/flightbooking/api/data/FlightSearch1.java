@@ -8,6 +8,12 @@ import lombok.Data;
 public class FlightSearch1 {
 	
 
+public FlightSearch1(String source, String destination, String date) {
+	this.source=source;
+	this.destination=destination;
+	this.date=date;
+	}
+
 private String source;
 	 
 private	 String destination;
