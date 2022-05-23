@@ -21,7 +21,7 @@ import com.flightbooking.service.serviceImpl.FlightServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
-public class FlightRepoTest {
+ class FlightRepoTest {
 	
 	
 	@InjectMocks
@@ -30,41 +30,30 @@ public class FlightRepoTest {
 	@Mock
 	FlightRepository repo;
 	
-	
+	//getAllFlight
 	 @Test
 	 void getAllFlight()
 	    {
 		 Route route=new Route();
-		
-		 
-		 when(repo.findAll()).thenReturn(Stream.of(new Flight((long) 1,"indigo","is3131",32,"monday",route),
-				 new Flight((long) 1,"air india","is313",32,"tuesday",route)).collect(Collectors.toList()));
+		 when(repo.findAll()).thenReturn(Stream.of(new Flight( 1L,"indigo","is3131",32,"monday",route),
+				 new Flight(2L,"air india","is313",32,"tuesday",route)).collect(Collectors.toList()));
 	       assertEquals(2,repo.findAll().size());
 	    }
 	 
-
-	 @Test
-	 void getAllFlights()
-	    {
-		 Route route=new Route();
-		
-		 String day="Monday";
-		 when(repo.findByDay( day)).thenReturn(Stream.of(new Flight((long) 1,"indigo","is3131",32,"Monday",route),
-				 new Flight((long) 1,"air india","is313",32,"tuesday",route)).collect(Collectors.toList()));
-	       assertEquals(2,repo.findByDay( day).size());
-	    }
 	 
+	 
+	 //getFlightByRoute
 	 @Test
 	 void getAllFlits()
 	    {
-		 Route route=new Route();
-		String source="bombay";
-				String destination="delhi";
+	Route route=new Route();
+	String source="bombay";
+    String destination="delhi";
 	route.setRouteId(1);
 	route.setSource(source);
 	route.setDestination(destination);
-		 when(repo.findFlightByRouteId(route)).thenReturn(Stream.of(new Flight((long) 1,"indigo","is3131",32,"Monday",route),
-				 new Flight((long) 1,"air india","is313",32,"tuesday",route)).collect(Collectors.toList()));
+		 when(repo.findFlightByRouteId(route)).thenReturn(Stream.of(new Flight(1L,"indigo","is3131",32,"Monday",route),
+				 new Flight(2L,"air india","is313",32,"tuesday",route)).collect(Collectors.toList()));
 		 assertEquals(false,repo.findFlightByRouteId(route).isEmpty());
 	    }
 

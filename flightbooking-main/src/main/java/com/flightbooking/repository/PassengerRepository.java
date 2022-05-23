@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.flightbooking.model.dto.PaasengerDto;
+
 import com.flightbooking.model.entity.Booking;
 import com.flightbooking.model.entity.Flight;
 import com.flightbooking.model.entity.Passenger;

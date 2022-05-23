@@ -47,9 +47,11 @@ public class FlightServiceImpl implements FlightService{
 		//getting search fields from FlightSearch1
 		String source=search.getSource();
 		String destination=search.getDestination();
-		
+		log.info(source+"--------------------------------"+destination);
+	
 		//getting route by Source and Destination
 		Route r=routeRepo.findFlightBySourceAndDestination(source, destination);
+		
 		
 		//converting date into week day
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", java.util.Locale.ENGLISH);
@@ -68,16 +70,19 @@ public class FlightServiceImpl implements FlightService{
 
 		  //checking if pflight is present or not
 		  if(tempList.isEmpty()) {  
+			  log.info("------------this is sparta--------------------");
 		return ResponseMessage.builder().status("201")
 				.message(" There is no direct flight from :"+ source+ " to: " +destination +" on "+myDate+","+day)
 				.build();
 			}
+		
+
 		return ResponseMessage.builder().status("201").message(" flight between airports on :"+day+ " " +search.getDate())
 			.data(tempList).build();
 	}
 	
 	
-	//getting connecting flight between source and destination
+//getting connecting flight between source and destination
 	@Override
 	public ResponseMessage getConnectingFlight(FlightSearch1 search) throws ParseException {
 		
@@ -85,9 +90,10 @@ public class FlightServiceImpl implements FlightService{
 		String destination=search.getDestination();
 		
 		//converting date into week day
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", java.util.Locale.ENGLISH);
-				Date myDate = sdf.parse(search.getDate());
-				sdf.applyPattern("EEEE");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", java.util.Locale.ENGLISH);
+				
+		//Date myDate = sdf.parse(search.getDate());
+		 sdf.applyPattern("EEEE");
 				
 		
 				//getting data by source
@@ -95,6 +101,7 @@ public class FlightServiceImpl implements FlightService{
 			
 			//geetind route by destination
 			List<Route> route1=routeRepo.findByDestination(destination);
+			
 			//Filtering Route 
 			Set<String> exclusions = route.stream()
 				    .map(Route::getDestination)
@@ -106,14 +113,14 @@ public class FlightServiceImpl implements FlightService{
 			//Filtering route 1 
 			//route destination = route 1 source
 			Set<String> exclusion = route1.stream()
-				    .map(Route::getSource)
+			    .map(Route::getSource)
 				    .collect(Collectors.toSet());
-			List<Route> filtere = route.stream()
+			List<Route> filteredRoute = route.stream()
 				    .filter(p -> exclusion.contains(p.getDestination()))
 				    .collect(Collectors.toList());
 		
-			filtere.addAll(filtered);
-		return ResponseMessage.builder().status("201").data(filtere)
+			filteredRoute.addAll(filtered);
+		return ResponseMessage.builder().status("201").data(filteredRoute)
 					  .message("There is no direct flight:"+search.getDate()).build();
 	}
 	
@@ -136,8 +143,8 @@ public class FlightServiceImpl implements FlightService{
 	}
 
 	@Override
-		public ResponseMessage getAllFlight() {
-			List<Flight> flight=flyrepo.findAll();
-			return ResponseMessage.builder().status("1").data(flight).message("Flight have Been saved").build();
+	public ResponseMessage getAllFlight() {
+		List<Flight> flight=flyrepo.findAll();
+		return ResponseMessage.builder().status("1").data(flight).message("Flight have Been saved").build();
 		}
 }

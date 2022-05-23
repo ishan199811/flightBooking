@@ -55,11 +55,12 @@ public ResponseMessage savePassenger(List<Passenger> passenger,long flightId,Str
 	Date myDate = new Date();
 	String day = sdf.format(myDate);
      book.setBookingDate(day);
-	//geting flight by Id
+	
+     //geting flight by Id
 	Flight fl=flyrepo.getById(flightId);
-	//seting flight into booking
-	book.setFlightId(fl);
-	//getting number of passengers
+		book.setFlightId(fl);
+	
+		//getting number of passengers
 	int l=passenger.size();
 	//setting number of passengers
 	book.setNoOfPassengers(l);

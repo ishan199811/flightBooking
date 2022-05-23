@@ -42,8 +42,8 @@ public class FlightController {
 	/* geting flight detail between source and destination by particular date 
 	  */
 	@GetMapping("/get")
-	public ResponseEntity<?> getflightByRoute(@RequestBody FlightSearch1 search) throws ParseException {
-	log.info(  " source  airport  destination airport  " + search);
+	public ResponseEntity<ResponseMessage> getflightByRoute(@RequestBody FlightSearch1 search) throws ParseException {
+	
 	return ResponseEntity.ok(flyservice.getflightbyroute(search));
 	}
 	
@@ -51,8 +51,8 @@ public class FlightController {
 	/* geeting conecting flight between source and destination 
 	*/
 	@GetMapping("/getc")
-	public ResponseEntity<?> getflightByConnectingRoute(@RequestBody FlightSearch1 search) throws ParseException {
-    log.info(  " source  airport  destination airport  "+ search);
+	public ResponseEntity<ResponseMessage> getflightByConnectingRoute(@RequestBody FlightSearch1 search) throws ParseException {
+   
 	return ResponseEntity.ok(flyservice.getConnectingFlight(search));
 	}
 	
@@ -60,7 +60,7 @@ public class FlightController {
 	/* saving flight detail 
 	 */
 	@PostMapping("/save")
-	public ResponseEntity<?> saveFlight(@RequestBody FlightDto flight){
+	public ResponseEntity<ResponseMessage> saveFlight(@RequestBody FlightDto flight){
 		ResponseMessage rs=validationservice.validFlight(flight);
 		if(rs.getStatus().equals("0")) {
 			return ResponseEntity.ok(rs);
@@ -69,7 +69,7 @@ public class FlightController {
 	}
 	
 	@GetMapping("/getseat")
-	public ResponseEntity<?> checkingaAvailability(@RequestBody PaasengerDto passenger) throws ParseException {
+	public ResponseEntity<ResponseMessage> checkingaAvailability(@RequestBody PaasengerDto passenger) throws ParseException {
     log.info(  " source  airport  destination airport  "+ passenger);
 	return ResponseEntity.ok(passengerService.findBydepartureDateAndFlight( passenger));
 	}

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.flightbooking.model.entity.Airport;
+import com.flightbooking.model.response.ResponseMessage;
 import com.flightbooking.service.AirportService;
 
 @RestController
@@ -23,13 +24,13 @@ public class AirportController {
 	
 	
 	@GetMapping("/get")
-	public ResponseEntity<?> getAirport(){
+	public ResponseEntity<ResponseMessage> getAirport(){
 		return ResponseEntity.ok(airservice.getAir());
 	}
 	
 	
 	@PostMapping("/save")
-	public ResponseEntity<?> saveAirport(@RequestBody Airport air){
+	public ResponseEntity<ResponseMessage> saveAirport(@RequestBody Airport air){
 		
 		return ResponseEntity.ok(airservice.saveair(air));
 	}

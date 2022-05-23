@@ -3,7 +3,7 @@ package com.flightbooking.service.serviceImpl;
 import org.springframework.stereotype.Service;
 
 import com.flightbooking.model.dto.FlightDto;
-import com.flightbooking.model.entity.Flight;
+
 import com.flightbooking.model.response.ResponseMessage;
 import com.flightbooking.service.ValidationService;
 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.flightbooking.model.entity.Passenger;
+import com.flightbooking.model.response.ResponseMessage;
 import com.flightbooking.service.BookingService;
 import com.flightbooking.service.PassengerService;
 
@@ -30,14 +31,14 @@ public class BookingController {
 	
 	
 	@PostMapping("/save")
-	public ResponseEntity<?> saveBooking(@RequestBody List<Passenger> pass , @RequestParam long id,@RequestParam String bookingDate) throws ParseException{
+	public ResponseEntity<ResponseMessage> saveBooking(@RequestBody List<Passenger> pass , @RequestParam long id,@RequestParam String bookingDate) throws ParseException{
 		
 		
 		return ResponseEntity.ok(bookservice.savePassenger(pass,id,bookingDate));
 	}
 	
 	@GetMapping("/getbyid")
-	public ResponseEntity<?> getBookingById(@RequestParam Long id){
+	public ResponseEntity<ResponseMessage> getBookingById(@RequestParam Long id){
 		
 		return ResponseEntity.ok(bookservice.getBookingById(id));
 	}

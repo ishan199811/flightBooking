@@ -17,7 +17,6 @@ import javax.persistence.ManyToOne;
 
 
 
-
 import lombok.Data;
 
 @Entity
@@ -33,7 +32,9 @@ public class Flight {
 	private String flightModel;
 	private int seatCapacity;
     private String day;
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+    
+    @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "route_id", nullable = false)
 	private Route routeId;
     private String boardingTime;
@@ -43,7 +44,7 @@ public class Flight {
 public Flight() {
 	
 }
-	
+
 	public Flight( Long flightId,String flightName, String flightModel, int seatCapacity, String day, Route routeId) {
 		super();
 this.flightId=flightId;
