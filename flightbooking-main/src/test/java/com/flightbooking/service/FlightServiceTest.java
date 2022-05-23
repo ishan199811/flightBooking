@@ -47,7 +47,7 @@ import com.flightbooking.repository.RouteRepository;
 		fly.add(new Flight( 1L,"indigo","is3131",32,"Monday",root));
 		fly.add(new Flight( 2L,"AirIndia","is3133",32,"Monday",root));
 		fly.add(new Flight(3L,"indiaair","is3132",32,"Monday , Tuesday",root));
-		when(rrepo.findFlightBySourceAndDestination(root.getSource(),root.getDestination())).thenReturn(root);
+		when(rrepo.findFlightBySourceAndDestination(fs.getSource(),fs.getDestination())).thenReturn(root);
 		when(repo.findFlightByRouteId(root)).thenReturn(fly);
 		assertEquals(fly,service.getflightbyroute(fs).data);
 		
@@ -68,9 +68,27 @@ void getAllFlight() {
 }
 //getConnectingFlight
 	 @Test
-	 void getConnectingFlight() {
+	 void getConnectingFlight() throws ParseException {
+		
+			FlightSearch1 fs=new FlightSearch1("bombay","delhi","06/06/2022");	
 		 
+		 Route route=new Route(1L,"bombay","indore");
 		 
+		 List<Route> root=new ArrayList<Route>();
+			root.add(route);
+		
+			Route route1=new Route(2L,"indore","delhi");
+			 List<Route> root2=new ArrayList<Route>();
+				root2.add(route1);
+				root2.addAll(root);	
+		
+			List<Flight> fly=new ArrayList<Flight>();
+			fly.add(new Flight( 1L,"indigo","is3131",32,"Monday",route));
+			fly.add(new Flight( 2L,"AirIndia","is3133",32,"Monday",route1));
+			when(rrepo.findBySource(fs.getSource())).thenReturn(root);
+			when(rrepo.findByDestination(fs.getDestination())).thenReturn(root2);
+			when(repo.findByRouteId(root2)).thenReturn(fly);
+			assertEquals(fly,service.getConnectingFlight(fs).data);
 	 }
 
 }

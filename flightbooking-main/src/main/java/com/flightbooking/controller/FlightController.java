@@ -2,6 +2,7 @@ package com.flightbooking.controller;
 
 import java.text.ParseException;
 
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +43,7 @@ public class FlightController {
 	/* geting flight detail between source and destination by particular date 
 	  */
 	@GetMapping("/get")
-	public ResponseEntity<ResponseMessage> getflightByRoute(@RequestBody FlightSearch1 search) throws ParseException {
+	public ResponseEntity<ResponseMessage> getflightByRoute(@Valid @RequestBody FlightSearch1 search) throws ParseException {
 	
 	return ResponseEntity.ok(flyservice.getflightbyroute(search));
 	}
@@ -51,7 +52,7 @@ public class FlightController {
 	/* geeting conecting flight between source and destination 
 	*/
 	@GetMapping("/getc")
-	public ResponseEntity<ResponseMessage> getflightByConnectingRoute(@RequestBody FlightSearch1 search) throws ParseException {
+	public ResponseEntity<ResponseMessage> getflightByConnectingRoute(@Valid @RequestBody FlightSearch1 search) throws ParseException {
    
 	return ResponseEntity.ok(flyservice.getConnectingFlight(search));
 	}

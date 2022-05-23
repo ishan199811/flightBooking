@@ -92,7 +92,7 @@ public class FlightServiceImpl implements FlightService{
 		//converting date into week day
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", java.util.Locale.ENGLISH);
 				
-		//Date myDate = sdf.parse(search.getDate());
+		
 		 sdf.applyPattern("EEEE");
 				
 		
@@ -106,6 +106,7 @@ public class FlightServiceImpl implements FlightService{
 			Set<String> exclusions = route.stream()
 				    .map(Route::getDestination)
 				    .collect(Collectors.toSet());
+			
 			List<Route> filtered = route1.stream()
 				    .filter(p -> exclusions.contains(p.getSource()))
 				    .collect(Collectors.toList());
@@ -115,12 +116,17 @@ public class FlightServiceImpl implements FlightService{
 			Set<String> exclusion = route1.stream()
 			    .map(Route::getSource)
 				    .collect(Collectors.toSet());
+			
 			List<Route> filteredRoute = route.stream()
 				    .filter(p -> exclusion.contains(p.getDestination()))
 				    .collect(Collectors.toList());
 		
 			filteredRoute.addAll(filtered);
-		return ResponseMessage.builder().status("201").data(filteredRoute)
+			
+			//geeting flight by routes
+			List<Flight> connectingFlight=flyrepo.findByRouteId(filteredRoute);
+		
+			return ResponseMessage.builder().status("201").data(connectingFlight)
 					  .message("There is no direct flight:"+search.getDate()).build();
 	}
 	
@@ -139,12 +145,15 @@ public class FlightServiceImpl implements FlightService{
 		Route route=routeRepo.findByRouteId(id);
 		fl.setRouteId(route);
 		flyrepo.save(fl);
+		
 		return ResponseMessage.builder().status("1").message("Flight have Been saved").build();
 	}
 
 	@Override
 	public ResponseMessage getAllFlight() {
+		
 		List<Flight> flight=flyrepo.findAll();
+		
 		return ResponseMessage.builder().status("1").data(flight).message("Flight have Been saved").build();
 		}
 }

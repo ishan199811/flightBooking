@@ -2,8 +2,10 @@ package com.flightbooking.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.flightbooking.model.entity.Flight;
 import com.flightbooking.model.entity.Route;
@@ -17,17 +19,11 @@ public interface FlightRepository extends JpaRepository<Flight , Long> {
 	
 	Flight findById(long id);
 	
-	@Query("SELECT f FROM Flight f WHERE CONCAT(f.routeId.source) LIKE %?1%")
-	Flight findBySource(String source );
-	
-	@Query("SELECT f FROM Flight f WHERE CONCAT(f.routeId.destination) LIKE %?1%")
-	Flight findByDestination(String destination );
-	
 	List<Flight> findFlightByRouteId(Route r);
 	
-	@Query(
-	        "SELECT CASE WHEN COUNT(s) > 0 THEN TRUE ELSE FALSE END FROM Flight s WHERE s.flightId = ?1")
-	    Boolean
-	    isFlightExitsById(long id);
+
+	
+	@Query("select r from Flight r where r.routeId in :routeId" )
+	  List<Flight> findByRouteId(@Param("routeId") List<Route> routeId);
 
 }
