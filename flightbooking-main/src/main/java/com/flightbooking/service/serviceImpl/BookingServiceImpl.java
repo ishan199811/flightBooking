@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.flightbooking.model.dto.BookingDto;
 import com.flightbooking.model.entity.Booking;
 import com.flightbooking.model.entity.Flight;
 import com.flightbooking.model.entity.Passenger;
@@ -43,9 +44,9 @@ public class BookingServiceImpl implements BookingService{
 	
 	//booking for flight
 @Override
-public ResponseMessage savePassenger(List<Passenger> passenger,long flightId,String bookingDate) throws ParseException {
+public ResponseMessage savePassenger(BookingDto bookingDto) throws ParseException {
 	List<Passenger> pass=new ArrayList<>();
-	pass.addAll(passenger);
+	pass.addAll(bookingDto.getPassenger());
 	Booking book=new Booking();
 	
 	
@@ -57,11 +58,11 @@ public ResponseMessage savePassenger(List<Passenger> passenger,long flightId,Str
      book.setBookingDate(day);
 	
      //geting flight by Id
-	Flight fl=flyrepo.getById(flightId);
+	Flight fl=flyrepo.getById(bookingDto.getFlightId());
 		book.setFlightId(fl);
 	
 		//getting number of passengers
-	int l=passenger.size();
+	int l=pass.size();
 	//setting number of passengers
 	book.setNoOfPassengers(l);
 	//saving booking info
@@ -73,7 +74,7 @@ public ResponseMessage savePassenger(List<Passenger> passenger,long flightId,Str
 			pas.setBookingId(book);
 		}
 		if(pas.getDepartureDate()==null) {
-			pas.setDepartureDate(bookingDate);
+			pas.setDepartureDate(bookingDto.getBookingDate());
 		}
 		if(pas.getFlight()==null) {
 			pas.setFlight(fl);

@@ -21,7 +21,7 @@ import com.flightbooking.model.dto.PaasengerDto;
 import com.flightbooking.model.response.ResponseMessage;
 import com.flightbooking.service.FlightService;
 import com.flightbooking.service.PassengerService;
-import com.flightbooking.service.ValidationService;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,8 +36,7 @@ public class FlightController {
 	@Autowired
 	PassengerService passengerService;
 	
-	@Autowired
-	ValidationService validationservice;
+	
 	
 
 	/* geting flight detail between source and destination by particular date 
@@ -62,10 +61,7 @@ public class FlightController {
 	 */
 	@PostMapping("/save")
 	public ResponseEntity<ResponseMessage> saveFlight(@RequestBody FlightDto flight){
-		ResponseMessage rs=validationservice.validFlight(flight);
-		if(rs.getStatus().equals("0")) {
-			return ResponseEntity.ok(rs);
-		}
+		
 		return ResponseEntity.ok(flyservice.saveFlight(flight));
 	}
 	

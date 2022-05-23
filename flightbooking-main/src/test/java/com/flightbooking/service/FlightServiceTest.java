@@ -49,7 +49,7 @@ import com.flightbooking.repository.RouteRepository;
 		fly.add(new Flight(3L,"indiaair","is3132",32,"Monday , Tuesday",root));
 		when(rrepo.findFlightBySourceAndDestination(fs.getSource(),fs.getDestination())).thenReturn(root);
 		when(repo.findFlightByRouteId(root)).thenReturn(fly);
-		assertEquals(fly,service.getflightbyroute(fs).data);
+		assertEquals(fly,service.getflightbyroute(fs).getData());
 		
 		}
 
@@ -63,7 +63,7 @@ void getAllFlight() {
 	fly.add(new Flight( 2L,"AirIndia","is3133",32,"tuesday",root));
 	fly.add(new Flight(3L,"indiaair","is3132",32,"wednesday",root));
 	when(repo.findAll()).thenReturn(fly);
-	assertEquals(fly,service.getAllFlight().data);
+	assertEquals(fly,service.getAllFlight().getData());
 
 }
 //getConnectingFlight
@@ -88,7 +88,7 @@ void getAllFlight() {
 			when(rrepo.findBySource(fs.getSource())).thenReturn(root);
 			when(rrepo.findByDestination(fs.getDestination())).thenReturn(root2);
 			when(repo.findByRouteId(root2)).thenReturn(fly);
-			assertEquals(fly,service.getConnectingFlight(fs).data);
+			assertEquals(fly,service.getConnectingFlight(fs).getData());
 	 }
 
 }

@@ -14,10 +14,10 @@ public class ResponseMessage  {
 	
 	
 
-	public String message;
+	private String message;
 	
-public 	String status;
+ private String status;
 	
-public	Object data;
+private  Object data;
 
 }

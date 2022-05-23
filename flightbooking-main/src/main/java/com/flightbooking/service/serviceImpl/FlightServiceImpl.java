@@ -40,6 +40,8 @@ public class FlightServiceImpl implements FlightService{
 	@Autowired
 	PassengerRepository passRepo;
 	
+	 
+	
 	//getting flight by source and destination on particular date
 	@Override
 	public ResponseMessage getflightbyroute(FlightSearch1 search) throws ParseException {
@@ -70,7 +72,8 @@ public class FlightServiceImpl implements FlightService{
 
 		  //checking if pflight is present or not
 		  if(tempList.isEmpty()) {  
-			  log.info("------------this is sparta--------------------");
+	
+		
 		return ResponseMessage.builder().status("201")
 				.message(" There is no direct flight from :"+ source+ " to: " +destination +" on "+myDate+","+day)
 				.build();
@@ -88,7 +91,7 @@ public class FlightServiceImpl implements FlightService{
 		
 		String source=search.getSource();
 		String destination=search.getDestination();
-		
+	
 		//converting date into week day
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", java.util.Locale.ENGLISH);
 				
@@ -120,12 +123,12 @@ public class FlightServiceImpl implements FlightService{
 			List<Route> filteredRoute = route.stream()
 				    .filter(p -> exclusion.contains(p.getDestination()))
 				    .collect(Collectors.toList());
-		
-			filteredRoute.addAll(filtered);
 			
+			filteredRoute.addAll(filtered);
+		
 			//geeting flight by routes
 			List<Flight> connectingFlight=flyrepo.findByRouteId(filteredRoute);
-		
+			
 			return ResponseMessage.builder().status("201").data(connectingFlight)
 					  .message("There is no direct flight:"+search.getDate()).build();
 	}

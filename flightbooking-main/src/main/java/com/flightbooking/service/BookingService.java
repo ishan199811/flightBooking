@@ -3,7 +3,7 @@ package com.flightbooking.service;
 import java.text.ParseException;
 import java.util.List;
 
-
+import com.flightbooking.model.dto.BookingDto;
 import com.flightbooking.model.entity.Booking;
 
 import com.flightbooking.model.entity.Passenger;
@@ -17,6 +17,8 @@ public interface BookingService {
 
 
 
-	ResponseMessage savePassenger(List<Passenger> passenger, long flightId, String bookingDate) throws ParseException;
+	
+
+	ResponseMessage savePassenger(BookingDto bookingDto) throws ParseException;
 	
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.flightbooking.model.dto.BookingDto;
 import com.flightbooking.model.entity.Passenger;
 import com.flightbooking.model.response.ResponseMessage;
 import com.flightbooking.service.BookingService;
@@ -31,10 +31,10 @@ public class BookingController {
 	
 	
 	@PostMapping("/save")
-	public ResponseEntity<ResponseMessage> saveBooking(@RequestBody List<Passenger> pass , @RequestParam long id,@RequestParam String bookingDate) throws ParseException{
+	public ResponseEntity<ResponseMessage> saveBooking(@RequestBody BookingDto bookingDto) throws ParseException{
 		
 		
-		return ResponseEntity.ok(bookservice.savePassenger(pass,id,bookingDate));
+		return ResponseEntity.ok(bookservice.savePassenger(bookingDto));
 	}
 	
 	@GetMapping("/getbyid")
