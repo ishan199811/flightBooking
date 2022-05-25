@@ -54,7 +54,7 @@ import com.flightbooking.repository.RouteRepository;
 		}
 
 	
-//for getAllFlight	
+	//test method for getAllFlight	
 @Test
 void getAllFlight() {
 	Route root=new Route();
@@ -66,7 +66,7 @@ void getAllFlight() {
 	assertEquals(fly,service.getAllFlight().getData());
 
 }
-//getConnectingFlight
+//test method for getConnectingFlight
 	 @Test
 	 void getConnectingFlight() throws ParseException {
 		
@@ -81,13 +81,16 @@ void getAllFlight() {
 			 List<Route> root2=new ArrayList<Route>();
 				root2.add(route1);
 				root2.addAll(root);	
-		
+				List<Route> filteredRoute=new ArrayList<Route>();
+				filteredRoute.add(route);
+				filteredRoute.add(route1);
+				
 			List<Flight> fly=new ArrayList<Flight>();
 			fly.add(new Flight( 1L,"indigo","is3131",32,"Monday",route));
 			fly.add(new Flight( 2L,"AirIndia","is3133",32,"Monday",route1));
 			when(rrepo.findBySource(fs.getSource())).thenReturn(root);
 			when(rrepo.findByDestination(fs.getDestination())).thenReturn(root2);
-			when(repo.findByRouteId(root2)).thenReturn(fly);
+			when(repo.findByRouteId(filteredRoute)).thenReturn(fly);
 			assertEquals(fly,service.getConnectingFlight(fs).getData());
 	 }
 

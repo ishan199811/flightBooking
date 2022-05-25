@@ -22,17 +22,6 @@ public class Route {
 	
 	
 
-	public Route() {
-	
-	
-	}
-
-	public Route(long routeId, String source, String destination) {
-		super();
-		this.routeId = routeId;
-		this.source = source;
-		this.destination = destination;
-	}
 
 	@Id
 	 @GeneratedValue(strategy=GenerationType.AUTO)
@@ -46,4 +35,18 @@ public class Route {
 	@OneToMany(fetch = FetchType.LAZY,mappedBy="routeId", cascade = CascadeType.ALL)
 	Set<Flight> flight;
 	
+	
+	
+
+	public Route() {
+	
+	
+	}
+
+	public Route(long routeId, String source, String destination) {
+		super();
+		this.routeId = routeId;
+		this.source = source;
+		this.destination = destination;
+	}
 }

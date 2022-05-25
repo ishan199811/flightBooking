@@ -125,7 +125,7 @@ public class FlightServiceImpl implements FlightService{
 				    .collect(Collectors.toList());
 			
 			filteredRoute.addAll(filtered);
-		
+	
 			//geeting flight by routes
 			List<Flight> connectingFlight=flyrepo.findByRouteId(filteredRoute);
 			

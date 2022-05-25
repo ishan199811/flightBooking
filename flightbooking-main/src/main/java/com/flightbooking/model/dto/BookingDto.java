@@ -11,7 +11,7 @@ import lombok.Data;
 public class BookingDto {
 	
 	private String bookingDate;
-	private int noOfPassengers;
+	
 	private long flightId;
 	private List<Passenger> passenger;
 	
