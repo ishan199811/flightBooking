@@ -12,6 +12,12 @@ public class BookingDto {
 	
 	private String bookingDate;
 	
+	public BookingDto(String bookingDate, long flightId, List<Passenger> passenger) {
+		super();
+		this.bookingDate = bookingDate;
+		this.flightId = flightId;
+		this.passenger = passenger;
+	}
 	private long flightId;
 	private List<Passenger> passenger;
 	

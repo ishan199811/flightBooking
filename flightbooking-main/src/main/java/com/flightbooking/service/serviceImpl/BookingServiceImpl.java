@@ -82,10 +82,8 @@ public ResponseMessage savePassenger(BookingDto bookingDto) throws ParseExceptio
 	}
 	//saving passenger info
     passRepo.saveAll(pass);
-    
-   
-    
-	return ResponseMessage.builder().message("this is your booking").data(book ).build();
+
+    return ResponseMessage.builder().message("this is your booking").data(book ).build();
 	
 }
 	
