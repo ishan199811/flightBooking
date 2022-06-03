@@ -1,7 +1,7 @@
 package com.flightbooking.controller;
 
 import java.text.ParseException;
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.flightbooking.model.dto.BookingDto;
-import com.flightbooking.model.entity.Passenger;
+
 import com.flightbooking.model.response.ResponseMessage;
 import com.flightbooking.service.BookingService;
 import com.flightbooking.service.PassengerService;
@@ -37,7 +37,7 @@ public class BookingController {
 		return ResponseEntity.ok(bookservice.savePassenger(bookingDto));
 	}
 	
-	@GetMapping("/getbyid")
+	@GetMapping("/getById")
 	public ResponseEntity<ResponseMessage> getBookingById(@RequestParam Long id){
 		
 		return ResponseEntity.ok(bookservice.getBookingById(id));

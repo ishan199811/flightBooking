@@ -1,7 +1,7 @@
 package com.flightbooking.repository;
 
 import java.util.List;
-import java.util.Set;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,6 +14,6 @@ public interface PassengerRepository extends JpaRepository<Passenger , Long>{
 
 	List<Passenger> findBydepartureDateAndFlight(String date,Flight flight);
 
-	Set<Passenger> findByBookingId(Booking booking);
+	List<Passenger> findByBookingId(Booking booking);
 
 }

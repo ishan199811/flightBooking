@@ -27,18 +27,18 @@ public class Flight {
 
 	@Id
 	 @GeneratedValue(strategy=GenerationType.AUTO)
-	private Long flightId;
-	private String flightName;
-	private String flightModel;
-	private int seatCapacity;
-    private String day;
+	 long flightId;
+	String flightName;
+	String flightModel;
+	 int seatCapacity;
+     String day;
 	
     
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "route_id", nullable = false)
-	private Route routeId;
-    private String boardingTime;
-	private String arrivalTime;
+	 Route routeId;
+     String boardingTime;
+	 String arrivalTime;
 	
 	
 public Flight() {

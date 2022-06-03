@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import lombok.Data;
 
@@ -19,9 +19,12 @@ public class Passenger {
 
 	
 
+	
+
 	@Id
 	 @GeneratedValue(strategy=GenerationType.AUTO)
-	private Long passengerId;
+	private long passengerId;
+	
 	
 	private String passengerName;
 	
@@ -34,9 +37,27 @@ public class Passenger {
 	
 	private String departureDate;
 	
-	 @JsonIgnore	  
+	  
 	 @ManyToOne(fetch = FetchType.LAZY)  
 	 @JoinColumn(name = "booking_id", nullable = true) 
 	 private Booking bookingId;
+	 
+	 public Passenger() {
+		 
+	 }
+	 
+	 
+	 public Passenger(Long passengerId, String passengerName, int passengerAge, String address, Flight flight,
+				String departureDate, Booking bookingId) {
+			super();
+			this.passengerId = passengerId;
+			this.passengerName = passengerName;
+			this.passengerAge = passengerAge;
+			this.address = address;
+			this.flight = flight;
+			this.departureDate = departureDate;
+			this.bookingId = bookingId;
+		}
+
 	
 }

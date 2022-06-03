@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.flightbooking.api.data.FlightSearch1;
 import com.flightbooking.model.dto.FlightDto;
 import com.flightbooking.model.entity.Flight;
+
 import com.flightbooking.model.entity.Route;
 import com.flightbooking.model.response.ResponseMessage;
 import com.flightbooking.repository.FlightRepository;
@@ -70,11 +71,10 @@ public class FlightServiceImpl implements FlightService{
 	            .filter(e ->e.getDay().contains(day))
 	              .collect(Collectors.toList());
 
-		  //checking if pflight is present or not
+	  //checking if pflight is present or not
 		  if(tempList.isEmpty()) {  
 	
-		
-		return ResponseMessage.builder().status("201")
+			return ResponseMessage.builder().status("201").data(getConnectingFlight(search))
 				.message(" There is no direct flight from :"+ source+ " to: " +destination +" on "+myDate+","+day)
 				.build();
 			}
@@ -139,11 +139,13 @@ public class FlightServiceImpl implements FlightService{
 	public ResponseMessage saveFlight(FlightDto flight) {
 		log.info(flight + ".........................................");
 		Flight fl=new Flight();
-		fl.setFlightId(flight.getFlightId());
+	
 		fl.setFlightName(flight.getFlightName());
 		fl.setFlightModel(flight.getFlightModel());
 		fl.setSeatCapacity(flight.getSeatCapacity());
-		fl.setDay(flight.getDay());
+         fl.setArrivalTime(flight.getArrivalTime());
+         fl.setBoardingTime(flight.getBoardingTime());
+         fl.setDay(flight.getDay());
 		Long id=flight.getRouteId();
 		Route route=routeRepo.findByRouteId(id);
 		fl.setRouteId(route);

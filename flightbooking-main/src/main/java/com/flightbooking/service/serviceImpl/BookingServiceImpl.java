@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
+
 import java.util.List;
 
 
@@ -48,23 +49,23 @@ public ResponseMessage savePassenger(BookingDto bookingDto) throws ParseExceptio
 	List<Passenger> pass=new ArrayList<>();
 	pass.addAll(bookingDto.getPassenger());
 	Booking book=new Booking();
-	
-	
+ 	
 	
 	//geeting present date and time
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	Date myDate = new Date();
 	String day = sdf.format(myDate);
      book.setBookingDate(day);
-	
+	book.setDepartureDate(bookingDto.getDepartureDate());
      //geting flight by Id
 	Flight fl=flyrepo.getById(bookingDto.getFlightId());
 		book.setFlightId(fl);
-	
 		//getting number of passengers
 	int l=pass.size();
 	//setting number of passengers
 	book.setNoOfPassengers(l);
+
+	
 	//saving booking info
 	bookrepo.save(book);
 
@@ -74,7 +75,7 @@ public ResponseMessage savePassenger(BookingDto bookingDto) throws ParseExceptio
 			pas.setBookingId(book);
 		}
 		if(pas.getDepartureDate()==null) {
-			pas.setDepartureDate(bookingDto.getBookingDate());
+			pas.setDepartureDate(bookingDto.getDepartureDate());
 		}
 		if(pas.getFlight()==null) {
 			pas.setFlight(fl);
@@ -82,8 +83,11 @@ public ResponseMessage savePassenger(BookingDto bookingDto) throws ParseExceptio
 	}
 	//saving passenger info
     passRepo.saveAll(pass);
+   
+    
+    
 
-    return ResponseMessage.builder().message("this is your booking").data(book ).build();
+    return ResponseMessage.builder().message("this is your booking").data( book).build();
 	
 }
 	
@@ -91,7 +95,9 @@ public ResponseMessage savePassenger(BookingDto bookingDto) throws ParseExceptio
 	@Override
 	public ResponseMessage getBookingById(Long id) {
     Booking book=bookrepo.getById(id);
-		return ResponseMessage.builder().message("this is your booking").data(book).build();
+    List<Passenger> pass=passRepo.findByBookingId(book);
+    
+		return ResponseMessage.builder().message("this is your booking").data(pass).build();
 	}
 
 }

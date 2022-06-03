@@ -25,35 +25,40 @@ public class Booking {
 	
 	@Id
  @GeneratedValue(strategy=GenerationType.AUTO)
-	private Long bookingId;
+	 long bookingId;
 	
-	private String bookingDate;
 
-	private int noOfPassengers;
+	 String bookingDate;
 	
-	@JsonIgnore
+ String departureDate;
+
+	 int noOfPassengers;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "flight_Id", nullable = false)
-	private Flight flightId; 
-
-	@OneToMany(fetch = FetchType.LAZY,mappedBy="bookingId", cascade =
-	 CascadeType.ALL) private Set<Passenger> passenger;
+	 Flight flightId; 
+	
+	@JsonIgnore 
+	  @OneToMany(fetch = FetchType.LAZY,mappedBy="bookingId", cascade =
+	 CascadeType.ALL) 
+	Set<Passenger> passenger;
 	 
 	  
-	  
-	  public Booking(Long bookingId, String bookingDate, int noOfPassengers, Flight flightId, Set<Passenger> passenger) {
+	  public Booking(Long bookingId, String bookingDate, int noOfPassengers, Flight flightId, Set<Passenger> passenger,String departureDate) {
 			super();
 			this.bookingId = bookingId;
 			this.bookingDate = bookingDate;
 			this.noOfPassengers = noOfPassengers;
 			this.flightId = flightId;
 			this.passenger = passenger;
-		}
-
+	        this.departureDate=departureDate;	
+	  }
 
 
 	public Booking() {
 		
 	}
+
+
 	
 }
